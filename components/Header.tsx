@@ -42,13 +42,13 @@ export function Header() {
 
   const active = (href: string) => (href === '/' ? pathname === '/' : pathname.startsWith(href));
   const companyActive = nav.company.some((n) => active(n.href));
-  const linkCls = (on: boolean) => `rounded-full px-3 py-2 text-[0.88rem] font-semibold transition-colors ${on ? 'text-navy-900 bg-cream-200/70' : 'text-navy-800/80 hover:text-navy-900'}`;
+  const linkCls = (on: boolean) => `relative px-3 py-2 text-[0.9rem] font-medium transition-colors ${on ? 'text-white after:absolute after:inset-x-3 after:-bottom-[1px] after:h-px after:bg-gold-400' : 'text-white/70 hover:text-white'}`;
 
   return (
-    <header className={`sticky top-0 z-40 border-b transition-colors ${scrolled ? 'border-cream-200 bg-cream-50/90 backdrop-blur-md' : 'border-transparent bg-cream-50'}`}>
-      <div className="container-site flex h-[4.25rem] items-center justify-between gap-4">
+    <header className={`sticky top-0 z-40 border-b transition-colors ${scrolled ? 'border-white/10 bg-navy-950/85 backdrop-blur-xl' : 'border-transparent bg-navy-950'}`}>
+      <div className="container-site flex h-[4.5rem] items-center justify-between gap-4">
         <Link href="/" aria-label="VELTRAXIS TRADECORP — home" className="shrink-0">
-          <Logo />
+          <Logo tone="light" />
         </Link>
 
         <nav aria-label="Main" className="hidden items-center gap-1 lg:flex">
@@ -58,9 +58,9 @@ export function Header() {
               Company <ChevronDown className={`h-4 w-4 transition-transform ${companyOpen ? 'rotate-180' : ''}`} />
             </button>
             {companyOpen && (
-              <div className="absolute right-0 top-full mt-2 w-56 overflow-hidden rounded-2xl border border-cream-200 bg-white p-1.5 shadow-xl">
+              <div className="absolute right-0 top-full mt-3 w-60 overflow-hidden rounded-xl border border-white/10 bg-navy-900/95 p-1.5 shadow-2xl backdrop-blur-xl">
                 {nav.company.map((n) => (
-                  <Link key={n.href} href={n.href} className={`block rounded-xl px-3.5 py-2.5 text-sm font-semibold ${active(n.href) ? 'bg-cream-100 text-navy-900' : 'text-navy-800/85 hover:bg-cream-100'}`}>{n.label}</Link>
+                  <Link key={n.href} href={n.href} className={`block rounded-lg px-3.5 py-2.5 text-sm font-medium ${active(n.href) ? 'bg-white/10 text-white' : 'text-white/75 hover:bg-white/5 hover:text-white'}`}>{n.label}</Link>
                 ))}
               </div>
             )}
@@ -69,24 +69,24 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Link href="/contact#enquiry" className="btn-gold hidden !px-5 !py-2.5 sm:inline-flex">Request a Quote</Link>
-          <button type="button" className="inline-flex h-10 w-10 items-center justify-center rounded-full text-navy-900 hover:bg-cream-200 lg:hidden" aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open} onClick={() => setOpen((v) => !v)}>
+          <Link href="/contact#enquiry" className="btn-white hidden !px-4 !py-2.5 sm:inline-flex">Request a Quote</Link>
+          <button type="button" className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-white hover:bg-white/10 lg:hidden" aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open} onClick={() => setOpen((v) => !v)}>
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
       </div>
 
       {open && (
-        <div className="fixed inset-x-0 bottom-0 top-[4.25rem] z-40 overflow-y-auto bg-cream-50 lg:hidden">
+        <div className="fixed inset-x-0 bottom-0 top-[4.5rem] z-40 overflow-y-auto bg-navy-950 lg:hidden">
           <nav aria-label="Mobile" className="container-site flex flex-col py-4">
             {[{ href: '/', label: 'Home' }, ...nav.main].map((n) => (
-              <Link key={n.href} href={n.href} className={`border-b border-cream-200 py-3.5 font-serif text-xl ${active(n.href) ? 'text-gold-700' : 'text-navy-900'}`}>{n.label}</Link>
+              <Link key={n.href} href={n.href} className={`border-b border-white/10 py-4 text-2xl font-semibold tracking-[-0.03em] ${active(n.href) ? 'text-gold-300' : 'text-white'}`}>{n.label}</Link>
             ))}
-            <div className="pb-1 pt-5 text-[0.7rem] font-bold uppercase tracking-[0.2em] text-navy-500">Company</div>
+            <div className="pb-1 pt-6 text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-white/40">Company</div>
             {[...nav.company, { href: '/contact', label: 'Contact Us' }].map((n) => (
-              <Link key={n.href} href={n.href} className={`border-b border-cream-200 py-3 text-base font-semibold ${active(n.href) ? 'text-gold-700' : 'text-navy-800'}`}>{n.label}</Link>
+              <Link key={n.href} href={n.href} className={`border-b border-white/10 py-3 text-base font-medium ${active(n.href) ? 'text-gold-300' : 'text-white/80'}`}>{n.label}</Link>
             ))}
-            <Link href="/contact#enquiry" className="btn-gold mt-6 w-full">Request a Quote</Link>
+            <Link href="/contact#enquiry" className="btn-white mt-8 w-full">Request a Quote</Link>
           </nav>
         </div>
       )}

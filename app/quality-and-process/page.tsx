@@ -9,7 +9,7 @@ export const metadata = pageMeta('quality', '/quality-and-process');
 export default function Page() {
   return (
     <>
-      <PageHero eyebrow={quality.eyebrow} title="Registered, documented and agreed before an order proceeds" intro="GST registration and an Importer Exporter Code identify our business. Specifications, product documents, samples and inspection are settled for each order before production or dispatch." />
+      <PageHero eyebrow={quality.eyebrow} title="Registered, documented and *agreed* before an order proceeds" intro="GST registration and an Importer Exporter Code identify our business. Specifications, product documents, samples and inspection are settled for each order before production or dispatch." />
       <section className="py-16">
         <div className="container-site grid gap-5 md:grid-cols-2">
           {quality.blocks.map((b, i) => (

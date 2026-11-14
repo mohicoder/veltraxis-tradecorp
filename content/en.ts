@@ -102,7 +102,7 @@ export const categories: Category[] = [
 
 export const products = {
   eyebrow: 'Products and Industries',
-  title: 'Sourcing across healthcare, consumer and industrial categories',
+  title: 'Sourcing across healthcare, consumer and *industrial* categories',
   intro: 'Our product coverage follows the requirements of our buyers. The categories below show key sourcing areas within a wider multi-sector portfolio. Individual models, brands, grades, quantities and destination eligibility are confirmed during quotation.',
   consumerTitle: 'Healthcare and consumer products',
   industrialTitle: 'Industrial and wider product coverage',
@@ -117,7 +117,7 @@ export const products = {
 
 export const services = {
   eyebrow: 'Services',
-  title: 'Sourcing, import–export coordination and supplier development',
+  title: 'Sourcing, import–export coordination and *supplier development*',
   intro: 'We support businesses through sourcing, import–export coordination and supplier development. The scope of each assignment is agreed around the product, origin, destination, quantity and commercial terms.',
   items: [
     { icon: 'search', title: 'Product sourcing and supplier identification', body: 'Send us a product description, specification sheet, photograph or reference sample requirement. We identify suitable supply options, prioritise direct manufacturers where feasible and compare suppliers against the order’s actual needs.' },
@@ -136,7 +136,7 @@ export type Region = { key: string; title: string; countries: string[] };
 
 export const markets = {
   eyebrow: 'Markets and International Presence',
-  title: 'Russia, CIS, Eastern Europe and the Arab world',
+  title: 'Russia, CIS, Eastern Europe and the *Arab world*',
   intro: 'VELTRAXIS TRADECORP operates across international markets with established business relationships and clients in the countries we serve. Russia and Eastern Europe are central to our international presence. Our wider coverage includes CIS and neighbouring Eurasian markets, the Arab world and other destinations according to buyer requirements.',
   regions: [
     { key: 'cis', title: 'Russia and CIS region', countries: ['Russia', 'Armenia', 'Azerbaijan', 'Belarus', 'Kazakhstan', 'Kyrgyzstan', 'Moldova', 'Tajikistan', 'Turkmenistan', 'Uzbekistan'] },
@@ -157,7 +157,7 @@ export const markets = {
 
 export const about = {
   eyebrow: 'About Us',
-  title: 'An Indian trade house built on hands-on commitment',
+  title: 'An Indian trade house built on *hands-on* commitment',
   intro: [
     'VELTRAXIS TRADECORP is an Indian import–export and sourcing company built around a hands-on commitment to international business. We work across industries, helping buyers explore supply options and helping manufacturers reach commercial opportunities beyond their domestic market.',
     'We are GST registered and hold an Importer Exporter Code (IEC). Our established presence in Russia and Eastern Europe, together with client relationships in our operating markets, gives our business a practical international foundation.',
@@ -180,7 +180,7 @@ export const about = {
 
 export const why = {
   eyebrow: 'Why VELTRAXIS',
-  title: 'Choose a trade partner that puts effort into your requirement',
+  title: 'Choose a trade partner that puts *effort* into your requirement',
   intro: 'We combine broad sourcing scope with careful attention to the practical details of procurement and export execution.',
   items: [
     { icon: 'globe', title: 'Established international relationships', body: 'Our established presence in Russia and Eastern Europe, together with clients in our operating markets, supports a business approach grounded in real buyer relationships.' },
@@ -217,7 +217,7 @@ export const quality = {
 
 export const faqs = {
   eyebrow: 'FAQs',
-  title: 'Frequently asked questions',
+  title: 'Frequently asked *questions*',
   items: [
     { q: 'What products do you import and export?', a: 'We welcome enquiries across legally tradable product categories, including medical, consumer, agricultural, industrial and commercial goods. We assess each requirement for suitable sourcing and commercial feasibility.' },
     { q: 'Are you GST registered and do you hold an IEC?', a: 'Yes. VELTRAXIS TRADECORP is GST registered and holds an Importer Exporter Code (IEC). Relevant business registration details can be shared during buyer onboarding.' },
@@ -234,7 +234,7 @@ export const faqs = {
 
 export const contact = {
   eyebrow: 'Contact and Partnership Enquiries',
-  title: 'Let us work on your next trade requirement',
+  title: 'Let us work on your *next trade* requirement',
   intro: 'Whether you are sourcing a single product, planning a broader procurement basket or exploring a distribution opportunity, VELTRAXIS TRADECORP welcomes your enquiry. Share the details that matter to your business and we will assess the next steps.',
   suppliersTitle: 'For manufacturers and suppliers',
   suppliers: 'Partner with us to explore international supply opportunities. Send your company profile, manufacturing location, product catalogue, specifications, minimum order quantities and available export documentation. Please identify products manufactured in your own facilities and any private label capabilities.',

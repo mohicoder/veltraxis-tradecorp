@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
-import '@fontsource-variable/manrope';
-import '@fontsource-variable/fraunces';
+import '@fontsource-variable/geist';
+import '@fontsource/instrument-serif/400.css';
+import '@fontsource/instrument-serif/400-italic.css';
 import './globals.css';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
   description: meta.home.description,
 };
 
-export const viewport: Viewport = { themeColor: '#0E2130', width: 'device-width', initialScale: 1 };
+export const viewport: Viewport = { themeColor: '#05070B', width: 'device-width', initialScale: 1 };
 
 const orgLd = {
   '@context': 'https://schema.org',

@@ -13,7 +13,7 @@ const terms = [
 export default function Page() {
   return (
     <>
-      <PageHero eyebrow="Landed Cost Calculator" title="Estimate the complete cost of a shipment" intro="Factory price is one part of the purchasing decision. Enter your figures to see FOB, CIF, duty, taxes and the landed cost per unit." />
+      <PageHero eyebrow="Landed Cost Calculator" title="Estimate the *complete cost* of a shipment" intro="Factory price is one part of the purchasing decision. Enter your figures to see FOB, CIF, duty, taxes and the landed cost per unit." />
       <section className="py-14">
         <div className="container-site">
           <LandedCostCalculator />

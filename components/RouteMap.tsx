@@ -82,14 +82,14 @@ export function RouteMap({ className = '' }: { className?: string }) {
             </circle>
             <circle cx={p.x} cy={p.y} r="3.4" fill="#D4AF37" />
             <circle cx={p.x} cy={p.y} r="3.4" fill="none" stroke="#D4AF37" strokeWidth="1" className="pulse" style={{ animationDelay: `${i * 0.2}s` }} />
-            <text x={p.x + (c.dx ?? 8)} y={p.y + (c.dy ?? 4)} textAnchor={c.anchor ?? 'start'} fill="#F6F1E4" fillOpacity="0.85" fontSize="14" fontWeight="600" fontFamily="Manrope Variable, Manrope, sans-serif">{c.name}</text>
+            <text x={p.x + (c.dx ?? 8)} y={p.y + (c.dy ?? 4)} textAnchor={c.anchor ?? 'start'} fill="#F6F1E4" fillOpacity="0.85" fontSize="14" fontWeight="600" fontFamily="Geist Variable, Geist, sans-serif">{c.name}</text>
           </g>
         );
       })}
 
       <circle cx={o.x} cy={o.y} r="7" fill="#D4AF37" stroke="#08151F" strokeWidth="2.5" />
       <circle cx={o.x} cy={o.y} r="7" fill="none" stroke="#D4AF37" strokeWidth="1.4" className="pulse" />
-      <text x={o.x + 13} y={o.y + 19} fill="#E6CC77" fontSize="15" fontWeight="800" letterSpacing="2.5" fontFamily="Manrope Variable, Manrope, sans-serif">INDIA</text>
+      <text x={o.x + 13} y={o.y + 19} fill="#E6CC77" fontSize="15" fontWeight="800" letterSpacing="2.5" fontFamily="Geist Variable, Geist, sans-serif">INDIA</text>
     </svg>
   );
 }
