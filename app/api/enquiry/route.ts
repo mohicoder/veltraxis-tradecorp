@@ -12,6 +12,7 @@ const MAX_MB = Number(process.env.MAX_UPLOAD_MB || 4);
 
 const schema = z.object({
   formType: z.string().trim().min(1).max(80),
+  lang: z.enum(['en', 'ru']).catch('en'),
   page: z.string().max(500).optional().default(''),
   name: z.string().trim().min(1).max(120),
   company: z.string().trim().max(160).optional().default(''),
@@ -114,6 +115,7 @@ export async function POST(req: NextRequest) {
     ['Email', data.email],
     ['Phone / WhatsApp', data.phone],
     ...Object.entries(details),
+    ['Website language', data.lang === 'ru' ? 'Russian' : 'English'],
     ['Submitted from', data.page],
     ['Received', `${when} IST`],
   ];
@@ -143,21 +145,25 @@ export async function POST(req: NextRequest) {
       to: enquiryInbox,
       cc: process.env.MAIL_CC_ALL || undefined,
       replyTo: emailOk ? `${data.name.replace(/[<>"]/g, '')} <${data.email}>` : undefined,
-      subject: `[Veltraxis Enquiry] ${data.formType} — ${data.name}${data.company ? ` (${data.company})` : ''}${details['Product name'] ? ` · ${details['Product name'].slice(0, 60)}` : ''}`,
+      subject: `[Veltraxis Enquiry]${data.lang === 'ru' ? ' [RU]' : ''} ${data.formType} — ${data.name}${data.company ? ` (${data.company})` : ''}${details['Product name'] ? ` · ${details['Product name'].slice(0, 60)}` : ''}`,
       html,
       text,
       attachments,
     });
 
     if (emailOk && process.env.SEND_AUTOREPLY !== 'false') {
+      const ack =
+        data.lang === 'ru'
+          ? {
+              subject: 'Мы получили ваш запрос — VELTRAXIS TRADECORP',
+              text: `Здравствуйте, ${data.name}!\n\nСпасибо за обращение в VELTRAXIS TRADECORP. Ваш запрос получен. Наша команда изучит детали и свяжется с вами по дальнейшим шагам — обычно в течение одного рабочего дня.\n\nВы можете ответить на это письмо, чтобы добавить спецификации, фотографии или документы.\n\nVELTRAXIS TRADECORP\n${enquiryInbox}\n${SITE_URL}/ru`,
+            }
+          : {
+              subject: 'We received your requirement — VELTRAXIS TRADECORP',
+              text: `Dear ${data.name},\n\nThank you for contacting VELTRAXIS TRADECORP. Your requirement has been received. Our team will review the details and contact you about the next steps, usually within one business day.\n\nYou can reply to this email to add specifications, photos or documents.\n\nVELTRAXIS TRADECORP\n${enquiryInbox}\n${SITE_URL}`,
+            };
       await t
-        .sendMail({
-          from,
-          to: data.email,
-          replyTo: enquiryInbox,
-          subject: 'We received your requirement — VELTRAXIS TRADECORP',
-          text: `Dear ${data.name},\n\nThank you for contacting VELTRAXIS TRADECORP. Your requirement has been received. Our team will review the details and contact you about the next steps, usually within one business day.\n\nYou can reply to this email to add specifications, photos or documents.\n\nVELTRAXIS TRADECORP\n${enquiryInbox}\n${SITE_URL}`,
-        })
+        .sendMail({ from, to: data.email, replyTo: enquiryInbox, subject: ack.subject, text: ack.text })
         .catch((e) => console.warn('[enquiry] auto-reply failed', e?.message));
     }
 

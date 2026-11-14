@@ -50,10 +50,10 @@ function arc(a: { x: number; y: number }, b: { x: number; y: number }) {
   return { d: `M${a.x.toFixed(1)} ${a.y.toFixed(1)}Q${cx.toFixed(1)} ${cy.toFixed(1)} ${b.x.toFixed(1)} ${b.y.toFixed(1)}`, len: Math.ceil(len) };
 }
 
-export function RouteMap({ className = '' }: { className?: string }) {
+export function RouteMap({ className = '', labels = {}, aria }: { className?: string; labels?: Record<string, string>; aria: string }) {
   const o = project(ORIGIN);
   return (
-    <svg viewBox={`0 0 ${MAP_W} ${MAP_H}`} className={className} role="img" aria-label="Trade routes from India to Russia, the CIS, Eastern Europe, the Gulf and North Africa">
+    <svg viewBox={`0 0 ${MAP_W} ${MAP_H}`} className={className} role="img" aria-label={aria}>
       <defs>
         <radialGradient id="glow" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stopColor="#D4AF37" stopOpacity="0.35" />
@@ -82,14 +82,14 @@ export function RouteMap({ className = '' }: { className?: string }) {
             </circle>
             <circle cx={p.x} cy={p.y} r="3.4" fill="#D4AF37" />
             <circle cx={p.x} cy={p.y} r="3.4" fill="none" stroke="#D4AF37" strokeWidth="1" className="pulse" style={{ animationDelay: `${i * 0.2}s` }} />
-            <text x={p.x + (c.dx ?? 8)} y={p.y + (c.dy ?? 4)} textAnchor={c.anchor ?? 'start'} fill="#F6F1E4" fillOpacity="0.85" fontSize="14" fontWeight="600" fontFamily="Geist Variable, Geist, sans-serif">{c.name}</text>
+            <text x={p.x + (c.dx ?? 8)} y={p.y + (c.dy ?? 4)} textAnchor={c.anchor ?? 'start'} fill="#F6F1E4" fillOpacity="0.85" fontSize="14" fontWeight="600" fontFamily="Geist Variable, Geist, sans-serif">{labels[c.name] ?? c.name}</text>
           </g>
         );
       })}
 
       <circle cx={o.x} cy={o.y} r="7" fill="#D4AF37" stroke="#08151F" strokeWidth="2.5" />
       <circle cx={o.x} cy={o.y} r="7" fill="none" stroke="#D4AF37" strokeWidth="1.4" className="pulse" />
-      <text x={o.x + 13} y={o.y + 19} fill="#E6CC77" fontSize="15" fontWeight="800" letterSpacing="2.5" fontFamily="Geist Variable, Geist, sans-serif">INDIA</text>
+      <text x={o.x + 13} y={o.y + 19} fill="#E6CC77" fontSize="15" fontWeight="800" letterSpacing="2.5" fontFamily="Geist Variable, Geist, sans-serif">{(labels.India ?? 'India').toUpperCase()}</text>
     </svg>
   );
 }

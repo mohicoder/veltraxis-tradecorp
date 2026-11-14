@@ -1,49 +1,39 @@
+import type { Dict } from '@/content';
+
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.veltraxistradecorp.com').replace(/\/$/, '');
 export const MAX_UPLOAD_MB = Number(process.env.MAX_UPLOAD_MB || 4);
 
-export type NavItem = { href: string; label: string };
+type NavKey = keyof Dict['nav'];
+export type NavItem = { href: string; key: NavKey };
 
 export const nav: { main: NavItem[]; company: NavItem[] } = {
   main: [
-    { href: '/products', label: 'Products' },
-    { href: '/services', label: 'Services' },
-    { href: '/markets', label: 'Markets' },
-    { href: '/landed-cost-calculator', label: 'Cost Calculator' },
+    { href: '/products', key: 'products' },
+    { href: '/services', key: 'services' },
+    { href: '/markets', key: 'markets' },
+    { href: '/landed-cost-calculator', key: 'calculator' },
   ],
   company: [
-    { href: '/about', label: 'About Us' },
-    { href: '/why-veltraxis', label: 'Why VELTRAXIS' },
-    { href: '/quality-and-process', label: 'Quality & Process' },
-    { href: '/faqs', label: 'FAQs' },
+    { href: '/about', key: 'about' },
+    { href: '/why-veltraxis', key: 'why' },
+    { href: '/quality-and-process', key: 'quality' },
+    { href: '/faqs', key: 'faqs' },
   ],
 };
 
 export const footerLinks: NavItem[] = [
-  { href: '/about', label: 'About Us' },
-  { href: '/products', label: 'Products' },
-  { href: '/services', label: 'Services' },
-  { href: '/markets', label: 'Markets' },
-  { href: '/why-veltraxis', label: 'Why VELTRAXIS' },
-  { href: '/quality-and-process', label: 'Quality & Process' },
-  { href: '/landed-cost-calculator', label: 'Landed Cost Calculator' },
-  { href: '/faqs', label: 'FAQs' },
-  { href: '/contact', label: 'Contact Us' },
-  { href: '/privacy', label: 'Privacy Policy' },
-  { href: '/terms', label: 'Website Terms' },
+  { href: '/about', key: 'about' },
+  { href: '/products', key: 'products' },
+  { href: '/services', key: 'services' },
+  { href: '/markets', key: 'markets' },
+  { href: '/why-veltraxis', key: 'why' },
+  { href: '/quality-and-process', key: 'quality' },
+  { href: '/landed-cost-calculator', key: 'calculatorLong' },
+  { href: '/faqs', key: 'faqs' },
+  { href: '/contact', key: 'contactUs' },
+  { href: '/privacy', key: 'privacy' },
+  { href: '/terms', key: 'terms' },
 ];
 
-/** Every public route — used for the sitemap. */
-export const routes = [
-  '/',
-  '/about',
-  '/products',
-  '/services',
-  '/markets',
-  '/why-veltraxis',
-  '/quality-and-process',
-  '/faqs',
-  '/landed-cost-calculator',
-  '/contact',
-  '/privacy',
-  '/terms',
-];
+/** Every public route (without language prefix) — used for the sitemap. */
+export const routes = ['/', '/about', '/products', '/services', '/markets', '/why-veltraxis', '/quality-and-process', '/faqs', '/landed-cost-calculator', '/contact', '/privacy', '/terms'];

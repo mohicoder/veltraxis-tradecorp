@@ -3,43 +3,49 @@ import { ArrowRight, ArrowUpRight, Factory, Handshake, ShoppingCart } from 'luci
 import { Globe } from '@/components/Globe';
 import { LandedCostCalculator } from '@/components/LandedCostCalculator';
 import { Icon } from '@/components/Icon';
-import { SectionHeading, TextLink } from '@/components/ui';
-import { categories, home, markets, quality, trustStrip } from '@/content/en';
-import { pageMeta } from '@/lib/meta';
+import { Accent, SectionHeading, TextLink } from '@/components/ui';
+import { getDict } from '@/content';
+import { lp, resolveLang } from '@/lib/i18n';
+import { metaFor } from '@/lib/meta';
 
-export const metadata = pageMeta('home', '/');
+export const generateMetadata = metaFor('home', '/');
 
-const countryCount = new Set(markets.regions.flatMap((r) => r.countries)).size;
 const firstSentence = (s: string) => s.split(/(?<=\.)\s/)[0];
+const audienceIcons = { buyer: ShoppingCart, supplier: Factory, partner: Handshake } as Record<string, typeof ShoppingCart>;
 
-export default function Home() {
+export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
+  const lang = await resolveLang(params);
+  const d = getDict(lang);
+  const { home, categories, markets, quality, trustStrip, ui } = d;
+  const L = (p: string) => lp(lang, p);
+  const countryCount = new Set(d.markets.regions.flatMap((r) => r.countries)).size;
   return (
     <>
       {/* HERO — dark, with the live globe */}
       <section className="relative isolate overflow-hidden bg-navy-950 text-white">
         <div aria-hidden className="grain absolute inset-0 -z-10 opacity-60" />
         <div className="absolute inset-y-0 right-[-7%] -z-10 hidden w-[62%] lg:block">
-          <Globe className="h-full w-full" scale={0.4} />
+          <Globe className="h-full w-full" scale={0.4} labels={ui.cities} aria={ui.globeAria} />
         </div>
         <div aria-hidden className="absolute inset-y-0 left-0 -z-10 hidden w-[46%] bg-gradient-to-r from-navy-950 via-navy-950/70 to-transparent lg:block" />
 
         <div className="container-site lg:flex lg:min-h-[calc(100svh-4.5rem)] lg:max-h-[880px] lg:items-center">
           <div className="max-w-[40rem] pb-6 pt-14 sm:pt-20 lg:py-24">
             <div className="eyebrow-dark rise">{home.eyebrow}</div>
-            <h1 className="h-display rise mt-6 text-[2.85rem] sm:text-[4.4rem] lg:text-[5rem]" style={{ animationDelay: '80ms' }}>
-              Your trusted Indian partner for <span className="accent">international trade</span>
+            <h1 className={`h-display rise mt-6 ${lang === 'ru' ? 'text-[2.6rem] sm:text-[3.8rem] lg:text-[4.2rem]' : 'text-[2.85rem] sm:text-[4.4rem] lg:text-[5rem]'}`} style={{ animationDelay: '80ms' }}>
+              <Accent text={ui.heroTitle} />
             </h1>
             <p className="rise mt-7 max-w-xl text-[1.08rem] leading-relaxed text-white/70 sm:text-[1.15rem]" style={{ animationDelay: '160ms' }}>{home.intro[0]}</p>
             <div className="rise mt-10 flex flex-wrap items-center gap-x-8 gap-y-5" style={{ animationDelay: '240ms' }}>
-              <Link href="/contact#enquiry" className="btn-white !px-6 !py-3.5">{home.primaryCta}</Link>
-              <Link href="/products" className="link-under text-[0.95rem] text-white">{home.secondaryCta}</Link>
+              <Link href={L('/contact#enquiry')} className="btn-white !px-6 !py-3.5">{home.primaryCta}</Link>
+              <Link href={L('/products')} className="link-under text-[0.95rem] text-white">{home.secondaryCta}</Link>
             </div>
           </div>
         </div>
 
         {/* phones & tablets: globe below the text */}
         <div className="relative -mt-2 h-[360px] sm:h-[480px] lg:hidden">
-          <Globe className="absolute inset-0 h-full w-full" />
+          <Globe className="absolute inset-0 h-full w-full" labels={ui.cities} aria={ui.globeAria} />
         </div>
 
         <div className="border-t border-white/10">
@@ -53,14 +59,14 @@ export default function Home() {
       <section className="bg-cream-100 py-20 sm:py-28">
         <div className="container-site">
           <p className="h-display mx-auto max-w-5xl text-center text-[1.9rem] text-navy-950 sm:text-[3rem]">
-            One sourcing partner for <span className="accent-ink">healthcare, consumer and industrial</span> supply — from India to Russia, the CIS, Eastern Europe and the Arab world.
+            <Accent text={ui.statement} tone="light" />
           </p>
           <dl className="mx-auto mt-16 grid max-w-5xl grid-cols-2 gap-px overflow-hidden rounded-xl border border-cream-200 bg-cream-200 md:grid-cols-4">
             {[
-              { n: String(categories.length), l: 'Product categories' },
-              { n: String(countryCount), l: 'Countries in our market coverage' },
-              { n: String(markets.regions.length), l: 'Market regions' },
-              { n: 'GST · IEC', l: 'Registered Indian trade business' },
+              { n: String(categories.length), l: ui.facts.categories },
+              { n: String(countryCount), l: ui.facts.countries },
+              { n: String(markets.regions.length), l: ui.facts.regions },
+              { n: 'GST · IEC', l: ui.facts.registered },
             ].map((f) => (
               <div key={f.l} className="bg-cream-50 p-6 sm:p-8">
                 <dt className="sr-only">{f.l}</dt>
@@ -76,12 +82,12 @@ export default function Home() {
       <section className="py-20 sm:py-28">
         <div className="container-site">
           <div className="flex flex-col justify-between gap-2 md:flex-row md:items-end">
-            <SectionHeading eyebrow="Products and Industries" title="Products across *industries*" intro={home.productsIntro} />
-            <div className="mb-12 shrink-0"><TextLink href="/products">View all categories</TextLink></div>
+            <SectionHeading eyebrow={ui.productsEyebrow} title={ui.productsTitle} intro={home.productsIntro} />
+            <div className="mb-12 shrink-0"><TextLink href={L('/products')}>{ui.viewAll}</TextLink></div>
           </div>
           <div className="grid gap-px overflow-hidden rounded-xl border border-cream-200 bg-cream-200 sm:grid-cols-2 lg:grid-cols-3">
             {categories.map((c, i) => (
-              <Link key={c.slug} href={`/products#${c.slug}`} className="group relative flex flex-col bg-white p-6 transition-colors hover:bg-navy-950 sm:p-7">
+              <Link key={c.slug} href={L(`/products#${c.slug}`)} className="group relative flex flex-col bg-white p-6 transition-colors hover:bg-navy-950 sm:p-7">
                 <div className="flex items-center justify-between">
                   <Icon name={c.icon} className="h-6 w-6 text-navy-950 transition-colors group-hover:text-gold-300" />
                   <span className="text-xs font-medium tabular-nums text-navy-300 group-hover:text-white/40">{String(i + 1).padStart(2, '0')}</span>
@@ -92,7 +98,7 @@ export default function Home() {
               </Link>
             ))}
           </div>
-          <p className="mt-8 max-w-3xl text-[0.98rem] leading-relaxed text-navy-600">{home.productsOutside} <Link href="/contact#enquiry" className="link-under text-navy-950">Send a custom requirement</Link></p>
+          <p className="mt-8 max-w-3xl text-[0.98rem] leading-relaxed text-navy-600">{home.productsOutside} <Link href={L('/contact#enquiry')} className="link-under text-navy-950">{ui.sendCustom}</Link></p>
         </div>
       </section>
 
@@ -100,8 +106,8 @@ export default function Home() {
       <section className="border-y border-cream-200 bg-white py-20 sm:py-28">
         <div className="container-site grid gap-12 lg:grid-cols-2 lg:gap-20">
           <div>
-            <div className="eyebrow">How we work</div>
-            <h2 className="h-display mt-4 text-[2.1rem] text-navy-950 sm:text-[2.9rem]">Successful trade starts with <span className="accent-ink">getting the details right</span></h2>
+            <div className="eyebrow">{ui.howWeWork}</div>
+            <h2 className="h-display mt-4 text-[2.1rem] text-navy-950 sm:text-[2.9rem]"><Accent text={ui.detailsTitle} tone="light" /></h2>
             <p className="mt-6 text-[1.05rem] leading-relaxed text-navy-600">{home.details}</p>
             <p className="mt-4 text-[1.05rem] leading-relaxed text-navy-600">{home.approach}</p>
           </div>
@@ -122,13 +128,13 @@ export default function Home() {
         <div className="container-site relative">
           <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
             <div>
-              <SectionHeading tone="dark" eyebrow="Markets" title="Our *international* relationships" intro={home.relations} />
-              <Link href="/markets" className="btn-white">{markets.cta} <ArrowRight className="h-4 w-4" /></Link>
+              <SectionHeading tone="dark" eyebrow={ui.marketsEyebrow} title={ui.relationsTitle} intro={home.relations} />
+              <Link href={L('/markets')} className="btn-white">{markets.cta} <ArrowRight className="h-4 w-4" /></Link>
             </div>
             <ul>
               {markets.regions.map((r) => (
                 <li key={r.key} className="group border-t border-white/10 py-5 last:border-b">
-                  <Link href={`/markets#${r.key}`} className="grid gap-1.5 sm:grid-cols-[13rem_1fr] sm:gap-6">
+                  <Link href={L(`/markets#${r.key}`)} className="grid gap-1.5 sm:grid-cols-[13rem_1fr] sm:gap-6">
                     <span className="text-[1.05rem] font-semibold tracking-[-0.015em] text-white transition-colors group-hover:text-gold-300">{r.title}</span>
                     <span className="text-sm leading-relaxed text-white/50">{r.countries.join(', ')}</span>
                   </Link>
@@ -142,38 +148,34 @@ export default function Home() {
       {/* PROCESS */}
       <section className="py-20 sm:py-28">
         <div className="container-site">
-          <SectionHeading eyebrow="Our process" title="From enquiry to *dispatch* in five steps" />
+          <SectionHeading eyebrow={ui.processEyebrow} title={ui.processTitle} />
           <ol className="grid gap-x-6 gap-y-10 md:grid-cols-5">
             {quality.steps.map((s, i) => (
               <li key={s.title} className="border-t border-navy-950 pt-5">
-                <div className="text-sm font-medium tabular-nums text-gold-600">Step {String(i + 1).padStart(2, '0')}</div>
+                <div className="text-sm font-medium tabular-nums text-gold-600">{ui.step} {String(i + 1).padStart(2, '0')}</div>
                 <h3 className="mt-3 text-[1.1rem] font-semibold leading-snug tracking-[-0.02em] text-navy-950">{s.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-navy-500">{s.body}</p>
               </li>
             ))}
           </ol>
-          <div className="mt-12"><TextLink href="/quality-and-process">Quality, documents and samples</TextLink></div>
+          <div className="mt-12"><TextLink href={L('/quality-and-process')}>{ui.processLink}</TextLink></div>
         </div>
       </section>
 
       {/* CALCULATOR */}
       <section className="bg-cream-100 py-20 sm:py-28">
         <div className="container-site">
-          <SectionHeading eyebrow="Landed Cost Calculator" title="See the *full cost* before you commit" intro={home.calcBody} />
-          <LandedCostCalculator compact />
+          <SectionHeading eyebrow={ui.calcEyebrow} title={ui.calcTitle} intro={home.calcBody} />
+          <LandedCostCalculator compact t={d.calc} ctaHref={L('/contact#enquiry')} />
         </div>
       </section>
 
       {/* AUDIENCES */}
       <section className="py-20 sm:py-28">
         <div className="container-site">
-          <SectionHeading eyebrow="Work with us" title="One trade partner, *three ways* to start" />
+          <SectionHeading eyebrow={ui.workEyebrow} title={ui.workTitle} />
           <div className="grid gap-px overflow-hidden rounded-xl border border-cream-200 bg-cream-200 md:grid-cols-3">
-            {[
-              { icon: ShoppingCart, title: 'Buyers and importers', body: 'Share a product, specification and destination. We assess supply options and prepare a commercial proposal.', href: '/contact?role=buyer#enquiry', cta: 'Request a Quote' },
-              { icon: Factory, title: 'Manufacturers and suppliers', body: 'Indian manufacturers looking for international buyers: send your profile, catalogue and export documentation.', href: '/contact?role=supplier#enquiry', cta: 'Partner with us' },
-              { icon: Handshake, title: 'Distributors and trade partners', body: 'Tell us your markets and categories, and the type of long-term supply partnership you want to develop.', href: '/contact?role=partner#enquiry', cta: 'Start a conversation' },
-            ].map((a) => (
+            {ui.audiences.map((a) => ({ ...a, icon: audienceIcons[a.key], href: L(`/contact?role=${a.key}#enquiry`) })).map((a) => (
               <div key={a.title} className="flex flex-col bg-white p-7 sm:p-8">
                 <a.icon className="h-6 w-6 text-navy-950" strokeWidth={1.5} />
                 <h3 className="mt-8 text-[1.35rem] font-semibold tracking-[-0.025em] text-navy-950">{a.title}</h3>

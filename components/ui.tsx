@@ -41,7 +41,7 @@ export function PageHero({ eyebrow, title, intro, children }: { eyebrow: string;
   );
 }
 
-export function CtaBand({ title, body, cta, href = '/contact#enquiry' }: { title: string; body?: string; cta: string; href?: string }) {
+export function CtaBand({ title, body, cta, href }: { title: string; body?: string; cta: string; href: string }) {
   return (
     <section className="py-20">
       <div className="container-site">

@@ -56,7 +56,7 @@ function arcPoints(a: V3, b: V3, steps = 64): V3[] {
   return pts;
 }
 
-export function Globe({ className = '', scale = 0.44 }: { className?: string; scale?: number }) {
+export function Globe({ className = '', scale = 0.44, labels = {}, aria }: { className?: string; scale?: number; labels?: Record<string, string>; aria: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -222,7 +222,7 @@ export function Globe({ className = '', scale = 0.44 }: { className?: string; sc
           if (r.city.label && R > 170) {
             ctx.font = '600 10.5px "Geist Variable", system-ui, sans-serif';
             ctx.fillStyle = `rgba(226,232,240,${(0.75 * d.z).toFixed(3)})`;
-            ctx.fillText(r.city.name.toUpperCase(), d.x + 8, d.y + 3.5);
+            ctx.fillText((labels[r.city.name] ?? r.city.name).toUpperCase(), d.x + 8, d.y + 3.5);
           }
         }
       }
@@ -239,7 +239,7 @@ export function Globe({ className = '', scale = 0.44 }: { className?: string; sc
         if (R > 170) {
           ctx.font = '700 11.5px "Geist Variable", system-ui, sans-serif';
           ctx.fillStyle = 'rgba(246,227,168,0.95)';
-          ctx.fillText('INDIA', h.x + 10, h.y + 16);
+          ctx.fillText((labels.India ?? 'India').toUpperCase(), h.x + 10, h.y + 16);
         }
       }
 
@@ -275,7 +275,7 @@ export function Globe({ className = '', scale = 0.44 }: { className?: string; sc
       window.removeEventListener('pointermove', onMove);
       document.removeEventListener('visibilitychange', onVis);
     };
-  }, [scale]);
+  }, [scale, labels]);
 
-  return <canvas ref={canvasRef} className={className} role="img" aria-label="Rotating globe showing trade routes from India to Russia, the CIS, Eastern Europe, the Gulf and North Africa" />;
+  return <canvas ref={canvasRef} className={className} role="img" aria-label={aria} />;
 }
