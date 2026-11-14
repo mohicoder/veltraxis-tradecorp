@@ -2,8 +2,8 @@
 
 Domain: veltraxistradecorp.com (registered at Hostinger). `www.veltraxistradecorp.com` is the primary; the bare domain redirects to it.
 Repo: github.com/mohicoder/veltraxis-tradecorp (branch `main`)
-Hosting: Vercel (same team as Raikwar). Every push to `main` deploys to production automatically (~2 min).
-Sister site: raikwarventures.org (repo mohicoder/raikwar-ventures) — same stack and conventions.
+Hosting: Vercel, in its own team (separate from any other business). Every push to `main` deploys to production automatically (~2 min).
+VELTRAXIS TRADECORP is an independent business: do not link it to, or mention, any other company on the site.
 
 ## Stack
 Next.js 15 (App Router) · TypeScript · Tailwind 3 · lucide-react · nodemailer · zod. Fonts self-hosted via @fontsource: Geist (all text; headings set tight with `.h-display`) and Instrument Serif italic for single accent words (`.accent` / `.accent-ink`; in titles passed to `SectionHeading`/`PageHero`, wrap words in *asterisks*). Look: ink-black hero/header/footer, warm off-white sections, champagne gold accents, hairline-bordered grids. Two languages: English at `/…`, Russian at `/ru/…` (Arabic is the planned next language). Russian accent words fall back to Cormorant Garamond italic (Instrument Serif has no Cyrillic).
