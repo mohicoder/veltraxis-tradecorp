@@ -20,7 +20,7 @@ Next.js 15 (App Router) · TypeScript · Tailwind 3 · lucide-react · nodemaile
 - `components/LandedCostCalculator.tsx` — FOB/CIF/duty/tax calculator (home + /landed-cost-calculator).
 - `components/EnquiryForm.tsx` — buyer / supplier / partner form; `?product=` and `?role=` prefill it.
 - `app/api/enquiry/route.ts` — validates, honeypot, rate limit (6/10 min/IP), attachments, emails `enquiryInbox` + auto-reply.
-- `components/Logo.tsx` — temporary SVG wordmark; swap for the official logo file when supplied.
+- `components/Logo.tsx` — official logo (supplied Nov 2026): `public/brand/mark.webp` (emblem, header), `public/brand/logo.webp` (full lockup, footer), `public/brand/og.jpg` (link previews), `app/icon.png` + `app/apple-icon.png`. All cut out of the original dark JPEG for dark backgrounds.
 
 ## Routes
 `/`, `/about`, `/products`, `/services`, `/markets`, `/why-veltraxis`, `/quality-and-process`, `/faqs`, `/landed-cost-calculator`, `/contact`, `/privacy`, `/terms`. Add new routes to `lib/site.ts` (sitemap lists both languages with hreflang).

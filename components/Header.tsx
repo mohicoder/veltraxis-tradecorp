@@ -52,7 +52,7 @@ export function Header({ lang, t }: { lang: Locale; t: Dict['nav'] }) {
     <header className={`sticky top-0 z-40 border-b transition-colors ${scrolled ? 'border-white/10 bg-navy-950/85 backdrop-blur-xl' : 'border-transparent bg-navy-950'}`}>
       <div className="container-site flex h-[4.5rem] items-center justify-between gap-4">
         <Link href={L('/')} aria-label={t.homeAria} className="shrink-0">
-          <Logo tone="light" />
+          <Logo />
         </Link>
 
         <nav aria-label="Main" className="hidden items-center gap-1 lg:flex">

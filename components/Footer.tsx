@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { ArrowUpRight, Mail, MessageCircle, Phone } from 'lucide-react';
-import { Logo } from './Logo';
+import { FullLogo } from './Logo';
 import { Accent } from './ui';
 import type { Dict } from '@/content';
 import { company, email, mailLink, phones, telLink, waLink } from '@/lib/contacts';
@@ -20,7 +20,7 @@ export function Footer({ lang, d }: { lang: Locale; d: Dict }) {
 
       <div className="container-site grid gap-12 py-14 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
-          <Logo tone="light" />
+          <FullLogo className="h-auto w-52 sm:w-60" />
           <p className="mt-6 max-w-md text-sm leading-relaxed text-white/55">{d.footer.text}</p>
         </div>
 

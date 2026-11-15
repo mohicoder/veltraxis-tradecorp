@@ -3,6 +3,8 @@ import { getDict, type Dict } from '@/content';
 import { locales, lp, type Locale } from './i18n';
 import { SITE_URL } from './site';
 
+const OG_IMAGE = { url: `${SITE_URL}/brand/og.jpg`, width: 1200, height: 630, alt: 'VELTRAXIS TRADECORP — Export · Import · Global Trade' };
+
 export function pageMeta(lang: Locale, key: keyof Dict['meta'], path: string): Metadata {
   const m = getDict(lang).meta[key];
   const languages: Record<string, string> = {};
@@ -12,8 +14,8 @@ export function pageMeta(lang: Locale, key: keyof Dict['meta'], path: string): M
     title: { absolute: m.title },
     description: m.description,
     alternates: { canonical: SITE_URL + lp(lang, path), languages },
-    openGraph: { title: m.title, description: m.description, url: SITE_URL + lp(lang, path), siteName: 'VELTRAXIS TRADECORP', type: 'website', locale: lang === 'ru' ? 'ru_RU' : 'en_IN' },
-    twitter: { card: 'summary', title: m.title, description: m.description },
+    openGraph: { title: m.title, description: m.description, url: SITE_URL + lp(lang, path), siteName: 'VELTRAXIS TRADECORP', type: 'website', locale: lang === 'ru' ? 'ru_RU' : 'en_IN', images: [OG_IMAGE] },
+    twitter: { card: 'summary_large_image', title: m.title, description: m.description, images: [OG_IMAGE.url] },
   };
 }
 

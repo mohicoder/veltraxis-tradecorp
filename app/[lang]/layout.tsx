@@ -28,6 +28,7 @@ const orgLd = {
   name: company.brand,
   legalName: company.legalName,
   url: SITE_URL,
+  logo: `${SITE_URL}/brand/logo.webp`,
   email,
   telephone: phones.india.tel,
   address: { '@type': 'PostalAddress', addressCountry: 'IN' },
